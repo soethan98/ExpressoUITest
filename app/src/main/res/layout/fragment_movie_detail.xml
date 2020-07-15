@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:contentDescription="@string/app_name"
+    android:id="@+id/fragment_movie_detail_parent"
     tools:context=".ui.movie.MovieDetailFragment">
 
     <TextView
@@ -44,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@id/movie_image">
 
         <TextView
-            android:id="@+id/movie_directiors"
+            android:id="@+id/movie_directors"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Directors"

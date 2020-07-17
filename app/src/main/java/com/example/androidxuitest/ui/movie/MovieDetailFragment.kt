@@ -4,19 +4,24 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.androidxuitest.R
 import com.example.androidxuitest.data.Movie
+import com.example.androidxuitest.data.source.MoviesDataSource
 import com.example.androidxuitest.data.source.MoviesRemoteDataSource
 import kotlinx.android.synthetic.main.fragment_movie_detail.*
 
-class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
+class MovieDetailFragment constructor(
+    val requestOptions: RequestOptions,
+    private val movieDataSource: MoviesDataSource
+) : Fragment(R.layout.fragment_movie_detail) {
     private lateinit var movie: Movie
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let { args ->
             args.getInt("movie_id").let { movieId ->
-                MoviesRemoteDataSource.getMovie(movieId)?.let {
+                movieDataSource.getMovie(movieId)?.let {
                     movie = it
 
 
@@ -50,12 +55,12 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
     }
 
     private fun setMovieDetails() {
-        movie.let { nonNullMovie ->
-            Glide.with(this)
-                .load(nonNullMovie.image)
-                .into(movie_image)
-            movie_title.text = nonNullMovie.title
-            movie_description.text = nonNullMovie.description
-        }
+        Glide.with(this)
+            .applyDefaultRequestOptions(requestOptions)
+            .load(movie.image)
+            .into(movie_image)
+        movie_title.text = movie.title
+        movie_description.text = movie.description
+
     }
 }

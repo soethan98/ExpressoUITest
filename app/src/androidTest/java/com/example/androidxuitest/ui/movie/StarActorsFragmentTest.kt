@@ -14,7 +14,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4ClassRunner::class)
-class StarActorsFragmentTest{
+class StarActorsFragmentTest {
     @Test
     fun test_isActorsListVisible() {
 
@@ -25,7 +25,7 @@ class StarActorsFragmentTest{
             "Rosario Dawson",
             "Christopher Walken"
         )
-        val fragmentFactory = MovieFragmentFactory()
+        val fragmentFactory = MovieFragmentFactory(null, null)
         val bundle = Bundle()
         bundle.putStringArrayList("args_actors", actors)
         val scenario = launchFragmentInContainer<StarActorsFragment>(
@@ -35,8 +35,12 @@ class StarActorsFragmentTest{
 
         // VERIFY
         onView(withId(R.id.star_actors_text))
-            .check(matches(withText(
-                StarActorsFragment.stringBuilderForStarActors(actors)
-            )))
+            .check(
+                matches(
+                    withText(
+                        StarActorsFragment.stringBuilderForStarActors(actors)
+                    )
+                )
+            )
     }
 }

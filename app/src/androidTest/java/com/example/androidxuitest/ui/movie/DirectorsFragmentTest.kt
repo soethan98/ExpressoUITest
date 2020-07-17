@@ -20,7 +20,7 @@ class DirectorsFragmentTest {
     fun test_isDirectorsListVisible() {
         //setup
         val directors = arrayListOf("R.J. Stewart", "James Vanderbilt")
-        val fragmentFactory = MovieFragmentFactory()
+        val fragmentFactory = MovieFragmentFactory(null, null)
         val bundle = Bundle()
         bundle.putStringArrayList("args_director", directors)
         val scenario = launchFragmentInContainer<DirectorsFragment>(
